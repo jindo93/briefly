@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body style="background-color:black; margin:40px; text-align: center;">
+    {% if msg %}
+    <h1 style="color:#26e840; margin-bottom: 15px;">{{ msg }}</h1>
+    {% endif %}
+    <a href="user-home" style="margin-bottom: 15px;">Back to home</a>
+    <br />
+    <h3 style="color:#26e840; margin-bottom: 20px;">
+      Check out what people are saying!
+    </h3>
+    <div
+      class="card_body"
+      style="background-color:#202020; text-align: center; margin: 20px;"
+    >
+      <br />
+      {% if tweets %} {% for twt in tweets %}
+      <form action="/rebrief" method="post">
+        <!-- <h6 style="font-family:courier; color:#26e840; margin-top:20px;">
+          <b
+            ><i># {{ twt[4] }}</i></b
+          >
+        </h6> -->
+        <p style="font-family:courier; color:#26e840;">
+          {{ twt[6] }}/{{ twt[7] }}/{{ twt[8] }} {{ twt[9] }}:{{ twt[10] }}:{{
+            twt[11]
+          }}
+          <i> - {{ twt[4] }}</i>
+        </p>
+        <p style="font-family:courier; color:#26e840;">
+          <b>
+            {{ twt[2] }}
+          </b>
+        </p>
+        <p style="font-family: courier; color:rgb(68, 220, 68)">
+          @{{ twt[15] }}
+        </p>
+        <input name="twt_id" type="hidden" value="{{ twt[0] }}" />
+        <input name="content_type" type="hidden" value="{{ twt[4] }}" />
+        <input name="twt_id_re" type="hidden" value="{{ twt[5] }}" />
+        <input class="btn btn-primary" type="submit" value="Rebrief" />
+      </form>
+      <br /><br />
+      {% endfor %} {% endif %}
+    </div>
+  </body>
+</html>

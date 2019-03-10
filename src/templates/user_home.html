@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="utf-8" />
+    <title>User Home</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body style="background-color:black; margin:40px; text-align: center;">
+    <h1 style="color:beige;">{{ username }}'s home</h1>
+    <a href="/log-out" style="margin: 10px;">Logout</a>
+    <a href="/briefings">Briefings</a>
+    <br />
+    {% if msg %}
+    <p>{{ msg }}</p>
+    {% endif %}
+    <br />
+    <h2 style="color:beige; margin-bottom: 20px;">Brief something!</h2>
+    <form action="/brief" method="post" style="margin-bottom: 20px;">
+      <input name="brf_content" placeholder="Brief me!" type="text" />
+      <input type="submit" value="Brief" />
+    </form>
+    <h2 style="color:beige; margin: 20px;">Your briefings</h2>
+    {% if tweets %} {% for twt in tweets %}
+
+    <p style="color:rgb(231, 231, 55);">
+      {{ twt[6] }}/{{ twt[7] }}/{{ twt[8] }} {{ twt[9] }}:{{ twt[10] }}:{{
+        twt[11]
+      }}
+      <i style="color:greenyellow;"> - {{ twt[4] }} </i>
+    </p>
+    <!-- <h6 style="color:rgb(231, 231, 55);">
+      <b
+        ><i># {{ twt[4] }} </i>  {{ twt[15] }}</b
+      >
+    </h6> -->
+    <p style="color:rgb(227, 145, 5);">
+      <b>
+        {{ twt[2] }}
+      </b>
+    </p>
+    <p style="color:rgb(231, 231, 55);">@{{ twt[15] }}</p>
+
+    <input name="twt_id" type="hidden" value="{{ twt[0] }}" />
+    <input name="type" type="hidden" value="{{ twt[4] }}" />
+    <br />
+    {% endfor %} {% endif %}
+  </body>
+</html>

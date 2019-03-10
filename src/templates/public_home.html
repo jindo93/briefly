@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="utf-8" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+  </head>
+  <div class="page" style="background-color:black; text-align: center;">
+    <br />
+    <h3 style="color:#26e840;">Login</h3>
+    <br />
+    <form action="/" method="post">
+      <input
+        name="username"
+        type="text"
+        placeholder="Username"
+        required
+        autofocus
+      />
+      <input name="password" type="password" placeholder="Password" required />
+      <input type="submit" />
+    </form>
+    <br />
+    <a href="/signup" style="margin-bottom: 15px;">Sign-up</a>
+  </div>
+  <body
+    style="background-color:black; margin:20px; margin-left: 50px; text-align: center;"
+  >
+    <br />
+    {% if msg %}
+    <h1 style="color:#26e840;">{{ msg }}</h1>
+    {% endif %}
+    <h3 style="color:#26e840;">Check out what people are saying</h3>
+    {% if tweets %} {% for twt in tweets %}
+    <div
+      class="card-body"
+      style="background-color:#202020; text-align: center;"
+    >
+      <h6 style="font-family:courier; color:#26e840;">
+        <b
+          ><i># {{ twt[4] }}</i></b
+        >
+      </h6>
+      <p style="font-family:courier; color:#26e840;">
+        {{ twt[6] }}/{{ twt[7] }}/{{ twt[8] }} {{ twt[9] }}:{{ twt[10] }}:{{
+          twt[11]
+        }}
+      </p>
+      <p style="font-family:courier; color:#26e840;">
+        <b>
+          {{ twt[2] }}
+        </b>
+      </p>
+    </div>
+    {% endfor %} {% endif %}
+  </body>
+</html>

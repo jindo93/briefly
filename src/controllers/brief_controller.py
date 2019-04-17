@@ -11,7 +11,6 @@ controller = Blueprint('public', __name__, url_prefix='/')
 def public_page():
     if request.method == 'GET':
         logout()
-        # TODO get tweets and retweets to display in public page
         public = Public()
         public.initialize()
 
@@ -19,13 +18,12 @@ def public_page():
             'public_home.html',
             msg='Welcome to BRIEFLY',
             tweets=public.tweets
-            # time=public.get_time(public.tweets)
         )
     else:
-        # Login
         user = User()
         username = request.form.get('username')
         password = request.form.get('password')
+
         if user.login(username, password):
             session['username'] = username
             print('session: ', session['username'])
@@ -45,10 +43,7 @@ def signup():
         username = request.form.get('username')
         password = request.form.get('password')
         user = User()
-        # if not (type(password) == str and type(username) == str):
-        #     return redirect('/signup')
-        # if not (len(password) > 2 and len(username) > 2):
-        #     return redirect('/signup')
+
         if user.check_username_exists(username):
             return render_template(
                 'signup.html',
@@ -70,6 +65,7 @@ def brief():
     user = User()
     user.initialize(session['username'])
     twt_content = request.form.get('brf_content')
+
     if user.tweet(twt_content):
         return redirect('/user-home')
     else:
@@ -84,13 +80,14 @@ def rebrief():
     user = User()
     user.initialize(session['username'])
     content_type = request.form.get('content_type')
+
     if content_type == 'brief':
         twt_id = request.form.get('twt_id')
     elif content_type == 'rebrief':
         twt_id = request.form.get('twt_id_re')
     else:
         return redirect('/')
-    print("tweet id: ", twt_id)
+
     try:
         user.retweet(twt_id)
         return redirect('/briefings')
@@ -106,6 +103,7 @@ def briefings():
     if request.method == 'GET':
         public = Public()
         public.initialize()
+
         return render_template(
             'briefings.html',
             msg="Welcome to BRIEFLY EXPLORER",
@@ -119,10 +117,6 @@ def user_home():
         user = User()
         user.initialize(session['username'])
 
-        #print('id: ', user.user_id)
-        #print('username: ', user.username)
-        #print('tweets: ', user.tweets)
-        #print('time: ', user.get_time(user.tweets))
         return render_template(
             'user_home.html',
             username=session['username'],
